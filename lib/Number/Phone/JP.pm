@@ -5,7 +5,7 @@ use Carp;
 
 use vars qw($VERSION %TEL_TABLE);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 
 sub import
 {
@@ -50,24 +50,25 @@ sub set_number
 		$self->_prefix($number->[0]);
 		my $buf = '';
 		$buf = join '', @{$number}[1..$#{$number}];
-		$buf =~ s/[-\s\.\(\)]+//g;
+		$buf =~ s/[-\s.()]+//g;
 		carp "There's a non-recommended character" if $buf =~ s/\D+//g;
 		$self->_number($buf);
 	} elsif (defined $_[0]) {
 		$self->_prefix($number);
 		my $buf = join '', @_;
-		$buf =~ s/[-\s\.\(\)]+//g;
+		$buf =~ s/[-\s.()]+//g;
 		carp "There's a non-recommended character" if $buf =~ s/\D+//g;
 		$self->_number($buf);
 	} else {
-		if ($number =~ /^\(?(0\d+?)[-\s\.\)]+(.*)$/) {
+		if ($number =~ /^\(?(0\d+?)[-\s.()]+(.*)$/) {
 			$self->_prefix($1);
 			my $buf = $2;
-			$buf =~ s/[-\s\.\(\)]+//g;
+			$buf =~ s/[-\s.()]+//g;
 			carp "There's a non-recommended character" if $buf =~ s/\D+//g;
 			$self->_number($buf);
 		} else {
-		carp "The number is not valid telephone number.";
+			carp "The number is not valid telephone number.";
+			@{$self}{qw/_prefix _number/} = (); # deter reusing
 		}
 	}
 	$self;
@@ -113,13 +114,13 @@ Number::Phone::JP - Validate Japanese phone numbers
 =head1 SYNOPSIS
 
  use Number::Phone::JP;
-
+ 
  my $tel = Number::Phone::JP->new('012', '34567890');
  print "This is valid!!\n" if $tel->is_valid_number;
-
+ 
  $tel->set_number('098 7654 3210');
  print "This is valid!!\n" if $tel->is_valid_number;
-
+ 
  $tel->import(qw(mobile PHS));
  $tel->set_number('090-0123-4567');
  print "This is valid!!\n" if $tel->is_valid_number;
@@ -172,6 +173,7 @@ following syntaxes:
  "01 2345 6789"
  "01 23456789"
  "01 2.3-4(5)6 7-.(8-)9"
+ "01(2345)6789" # added on version 0.03
 
 Some " " (space), "." (dot), "-" (hyphen) and "()" (round bracket),
 are treated equally to use for separator, And Others are
@@ -205,11 +207,11 @@ For importing, you can import by calling this method, and you can
 import by B<calling this module> with some arguments.
 
  Example:
-
+ 
   # by calling import method
   use Number::Phone::JP; # import all the categories (default)
   my $tel = Number::Phone::JP->new->import(qw(mobile PHS));
-
+ 
   # by calling this module
   use Number::Phone::JP qw(Mobile Phs);
   my $tel = Number::Phone::JP->new; # same as above
@@ -230,7 +232,7 @@ returns false if the number is not valid.
 =head1 EXAMPLE
 
  use Number::Phone::JP qw(mobile phs);
-
+ 
  my $tel = Number::Phone::JP->new;
  open FH, 'customer.list' or die "$!";
  while (<FH>) {

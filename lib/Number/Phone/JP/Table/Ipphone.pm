@@ -4,7 +4,7 @@ use strict;
 require Exporter;
 use vars qw($VERSION @ISA @EXPORT %TEL_TABLE);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 
 @ISA    = qw(Exporter);
 @EXPORT = qw(%TEL_TABLE);
