@@ -4,7 +4,7 @@ use strict;
 require Exporter;
 use vars qw($VERSION @ISA @EXPORT %TEL_TABLE);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 @ISA    = qw(Exporter);
 @EXPORT = qw(%TEL_TABLE);
@@ -30,7 +30,7 @@ __END__
 
 =head1 NAME
 
-Number::Phone::JP::Table::Mobile - Regex table for Japanese IP phones
+Number::Phone::JP::Table::Ipphone - Regex table for Japanese IP phones
 
 =head1 SYNOPSIS
 

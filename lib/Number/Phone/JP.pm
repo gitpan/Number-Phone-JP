@@ -5,7 +5,7 @@ use Carp;
 
 use vars qw($VERSION %TEL_TABLE);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 sub import
 {
@@ -181,7 +181,7 @@ before validation.
 =item * import
 
 It exists to select what categories is used for validation. You should
-some specified categories for this method.
+pass some specified categories to this method.
 
 Categories list is as follows:
 

@@ -1,4 +1,8 @@
 Revision histories for Perl extension Number::Phone::JP
 
+0.02  Tue Jul 11
+     - Bug fixed in table of Number::Phone::JP::Table::Home.
+       ... local area prefix must not begins from "0" (ZERO).
+
 0.01  Tue Jul 08
      - original version

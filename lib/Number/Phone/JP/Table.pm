@@ -4,7 +4,7 @@ use strict;
 require Exporter;
 use vars qw($VERSION @ISA @EXPORT %TEL_TABLE);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 @ISA    = qw(Exporter);
 @EXPORT = qw(%TEL_TABLE);
@@ -20,7 +20,6 @@ use Number::Phone::JP::Table::Pager    ();
 use Number::Phone::JP::Table::Phs      ();
 use Number::Phone::JP::Table::Q2       ();
 use Number::Phone::JP::Table::United   ();
-
 
 %TEL_TABLE = (
 	%Number::Phone::JP::Table::Class1::TEL_TABLE,
