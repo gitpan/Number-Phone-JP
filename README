@@ -1,0 +1,33 @@
+Number::Phone::JP version 0.01
+==============================
+
+Number::Phone::JP is a simple module to validate Japanese phone number
+formats. The Japanese phone numbers are regulated by Ministry of Public
+Management, Home Affairs, Posts and Telecommunications of Japan. You can
+validate what a target number is valid from this regulation point of
+view.
+
+There are many categories for type of telephones in Japan. This module
+is able to be used narrowed down to the type of phones.
+
+This module only validates what a phone number agrees on the regulation.
+Therefore, it does NOT validate what a phone number actually exists.
+
+This validation needs only an area (or category) prefix and behind it.
+The separator of number behind the prefix is ignored.
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2003 Koichi Taniguchi, Japan. All rights reserved.
+
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. 
