@@ -1,53 +1,15 @@
 package Number::Phone::JP::Table::Ipphone;
 
 use strict;
-require Exporter;
-use vars qw($VERSION @ISA @EXPORT %TEL_TABLE);
+use warnings;
 
-$VERSION = '0.03';
+our $VERSION = '0.01';
 
-@ISA    = qw(Exporter);
-@EXPORT = qw(%TEL_TABLE);
-
-# Table-Last-Modified: 2003/06/01
-%TEL_TABLE = (
-	# Pref => q<Assoc-Pref-Regex>,
-	50 =>
-		'(?:1(?:[0-4]\d\d|5(?:[0-6]\d|7[0-7]))|'.
-		'2(?:0(?:0\d|1[0-6])|40[0-8]|525)|'.
-		'3(?:0(?:[0-3]\d|4[0-5])|3\d\d|4(?:[0-4]\d|50)|90[01])|'.
-		'5(?:00[0-3]|20[012]|5(?:[012456]\d|3[012]))|'.
-		'6(?:619|620)|'.
-		'7(?:00[01]|10[0-6]|5(?:[012]\d|3[012]))|'.
-		'8(?:00[0-6]|600|800)'.
-		')\d{4}',
+# Table last modified: 2007-02-01
+our %TEL_TABLE = (
+    # Pref => q<Assoc-Pref-Regex>,
+    50 => '(?:(?:7(?:6(?:2[0-5]|[01]\d)|7(?:7[0-5]|00|88)|1(?:1[0-3]|0\d)|30[0-3]|00[01]|5\d\d)|8(?:8(?:8[0-6]|0[0-5]|6[4-8])|0(?:3[0-5]|[012]\d|80)|6(?:0[01]|86))|3(?:2(?:[0-4]\d|5[01])|8(?:1[0-7]|0\d)|[013-7]\d\d|90[01])|2(?:0(?:3[0-6]|[012]\d)|40[0-8]|20[012]|525)|1(?:8(?:1[012]|0\d)|[0-7]\d\d)|6(?:6(?:2[012]|19)|86[0-5]|000)|5(?:5[0-6]|8[01]|[02]0)\d|90(?:1[0-5]|0\d))\d{4})',
 );
 
 1;
 __END__
-
-=pod
-
-=head1 NAME
-
-Number::Phone::JP::Table::Ipphone - Regex table for Japanese IP phones
-
-=head1 SYNOPSIS
-
-B<DO NOT USE THIS MODULE DIRECTLY>
-
-=head1 DESCRIPTION
-
-This module defines Japanese IP phones table to use by
-Number::Phone::JP.
-
-=head1 SEE ALSO
-
-L<Number::Phone::JP>,
-http://www.soumu.go.jp/joho_tsusin/top/tel_number/ip_number.html
-
-=head1 AUTHOR
-
-Koichi Taniguchi <taniguchi@users.sourceforge.jp>
-
-=cut

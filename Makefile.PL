@@ -1,9 +1,8 @@
-package Number::Phone::JP;
+use inc::Module::Install;
+name 'Number-Phone-JP';
+all_from 'lib/Number/Phone/JP.pm';
 
-use ExtUtils::MakeMaker;
+build_requires 'Test::More';
+requires 'UNIVERSAL::require' => 0;
 
-WriteMakefile(
-	NAME => __PACKAGE__,
-	VERSION_FROM => 'lib/Number/Phone/JP.pm', # finds $VERSION
-);
-__END__
+WriteAll;

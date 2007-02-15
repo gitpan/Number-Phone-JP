@@ -1,43 +1,42 @@
 package Number::Phone::JP::Table;
 
 use strict;
-require Exporter;
-use vars qw($VERSION @ISA @EXPORT %TEL_TABLE);
+use warnings;
+use base qw(Exporter);
 
-$VERSION = '0.03';
+our $VERSION = '0.10';
+our @EXPORT = qw(%TEL_TABLE);
 
-@ISA    = qw(Exporter);
-@EXPORT = qw(%TEL_TABLE);
+require Number::Phone::JP::Table::Class1;
+require Number::Phone::JP::Table::Class2;
+require Number::Phone::JP::Table::Freedial;
+require Number::Phone::JP::Table::Home;
+require Number::Phone::JP::Table::Ipphone;
+require Number::Phone::JP::Table::Mobile;
+require Number::Phone::JP::Table::Pager;
+require Number::Phone::JP::Table::Phs;
+require Number::Phone::JP::Table::Q2;
+require Number::Phone::JP::Table::United;
+require Number::Phone::JP::Table::Upt;
 
-# for importing the all of table
-use Number::Phone::JP::Table::Class1   ();
-use Number::Phone::JP::Table::Class2   ();
-use Number::Phone::JP::Table::Freedial ();
-use Number::Phone::JP::Table::Home     ();
-use Number::Phone::JP::Table::Ipphone  ();
-use Number::Phone::JP::Table::Mobile   ();
-use Number::Phone::JP::Table::Pager    ();
-use Number::Phone::JP::Table::Phs      ();
-use Number::Phone::JP::Table::Q2       ();
-use Number::Phone::JP::Table::United   ();
+no warnings 'once';
 
-%TEL_TABLE = (
-	%Number::Phone::JP::Table::Class1::TEL_TABLE,
-	%Number::Phone::JP::Table::Class2::TEL_TABLE,
-	%Number::Phone::JP::Table::Freedial::TEL_TABLE,
-	%Number::Phone::JP::Table::Home::TEL_TABLE,
-	%Number::Phone::JP::Table::Ipphone::TEL_TABLE,
-	%Number::Phone::JP::Table::Mobile::TEL_TABLE,
-	%Number::Phone::JP::Table::Pager::TEL_TABLE,
-	%Number::Phone::JP::Table::Phs::TEL_TABLE,
-	%Number::Phone::JP::Table::Q2::TEL_TABLE,
-	%Number::Phone::JP::Table::United::TEL_TABLE,
+our %TEL_TABLE = (
+    %Number::Phone::JP::Table::Class1::TEL_TABLE,
+    %Number::Phone::JP::Table::Class2::TEL_TABLE,
+    %Number::Phone::JP::Table::Freedial::TEL_TABLE,
+    %Number::Phone::JP::Table::Home::TEL_TABLE,
+    %Number::Phone::JP::Table::Ipphone::TEL_TABLE,
+    %Number::Phone::JP::Table::Mobile::TEL_TABLE,
+    %Number::Phone::JP::Table::Pager::TEL_TABLE,
+    %Number::Phone::JP::Table::Phs::TEL_TABLE,
+    %Number::Phone::JP::Table::Q2::TEL_TABLE,
+    %Number::Phone::JP::Table::United::TEL_TABLE,
+    %Number::Phone::JP::Table::Upt::TEL_TABLE,
 );
 
 1;
 __END__
-
-=pod
 
 =head1 NAME
 
@@ -52,13 +51,18 @@ B<DO NOT USE THIS MODULE DIRECTLY>
 This module defines all of the Japanese telephone numbers table to use
 by Number::Phone::JP.
 
+=head1 AUTHOR
+
+Koichi Taniguchi E<lt>taniguchi@livedoor.jpE<gt>
+
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
 =head1 SEE ALSO
 
 L<Number::Phone::JP>,
 http://www.soumu.go.jp/joho_tsusin/top/tel_number/number_shitei.html
-
-=head1 AUTHOR
-
-Koichi Taniguchi <taniguchi@users.sourceforge.jp>
 
 =cut

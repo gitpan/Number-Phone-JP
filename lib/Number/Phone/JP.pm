@@ -1,111 +1,90 @@
 package Number::Phone::JP;
 
 use strict;
+use warnings;
 use Carp;
+use UNIVERSAL::require;
 
-use vars qw($VERSION %TEL_TABLE);
+our $VERSION = '0.10';
+our %TEL_TABLE = ();
 
-$VERSION = '0.03';
-
-sub import
-{
-	my $self = shift;
-	%TEL_TABLE = ();
-
-	if (@_) {
-		for (@_) {
-			my $table = ucfirst(lc($_));
-			my $pack  = qq{Number::Phone::JP::Table::$table};
-			eval qq{require $pack};
-			croak $@ if $@;
-			my $hash = $pack . '::TEL_TABLE';
-			eval
-				'for my $key (keys %' . $hash . ') {' .
-				'$TEL_TABLE{$key} = $' . $hash . '{$key}' .
-				'}';
-			croak $@ if $@;
-		}
-	} else {
-		require Number::Phone::JP::Table;
-		import Number::Phone::JP::Table;
-	}
-	$self;
+sub import {
+    my $self = shift;
+    %TEL_TABLE = ();
+    if (@_) {
+        for my $subclass (@_) {
+            my $package =
+                sprintf('%s::Table::%s', __PACKAGE__, ucfirst(lc($subclass)));
+            $package->require or croak $@;
+            {
+                no strict 'refs';
+                while (my($k, $v) = each %{"$package\::TEL_TABLE"}) {
+                    $TEL_TABLE{$k} = $v;
+                }
+            }
+        }
+    }
+    else {
+        require Number::Phone::JP::Table;
+        import  Number::Phone::JP::Table;
+    }
+    return $self;
 }
 
-sub new
-{
-	my $class = shift;
-	my $self  = {};
-	bless $self, $class;
-	$self->set_number(@_) if @_;
-	$self;
+sub new {
+    my $class = shift;
+    my $self = bless {}, $class;
+    $self->set_number(@_) if @_;
+    return $self;
 }
 
-sub set_number
-{
-	my $self   = shift;
-	my $number = shift;
-
-	if (ref($number) eq 'ARRAY') {
-		$self->_prefix($number->[0]);
-		my $buf = '';
-		$buf = join '', @{$number}[1..$#{$number}];
-		$buf =~ s/[-\s.()]+//g;
-		carp "There's a non-recommended character" if $buf =~ s/\D+//g;
-		$self->_number($buf);
-	} elsif (defined $_[0]) {
-		$self->_prefix($number);
-		my $buf = join '', @_;
-		$buf =~ s/[-\s.()]+//g;
-		carp "There's a non-recommended character" if $buf =~ s/\D+//g;
-		$self->_number($buf);
-	} else {
-		if ($number =~ /^\(?(0\d+?)[-\s.()]+(.*)$/) {
-			$self->_prefix($1);
-			my $buf = $2;
-			$buf =~ s/[-\s.()]+//g;
-			carp "There's a non-recommended character" if $buf =~ s/\D+//g;
-			$self->_number($buf);
-		} else {
-			carp "The number is not valid telephone number.";
-			@{$self}{qw/_prefix _number/} = (); # deter reusing
-		}
-	}
-	$self;
+sub set_number {
+    my $self   = shift;
+    my $number = shift;
+    if (ref($number) eq 'ARRAY') {
+        $self->_prefix = shift @$number;
+        (my $num = join('', @$number)) =~ s/\D+//g;
+        $self->_number = $num;
+    }
+    elsif (defined $_[0]) {
+        $self->_prefix = $number;
+        (my $num = join('', @_)) =~ s/\D+//g;
+        $self->_number = $num;
+    }
+    elsif ($number =~ /^\D*(0\d+)\D(.+)$/) {
+        my $pref = $1;
+        my $num  =  $2;
+        $pref =~ s/\D+//g;
+        $num  =~ s/\D+//g;
+        $self->_prefix = $pref;
+        $self->_number = $num;
+    }
+    else {
+        carp "The number is invalid telephone number.";
+        $self->_prefix = ();
+        $self->_number = ();
+    }
+    return $self;
 }
 
-sub is_valid_number
-{
-	my $self = shift;
-	unless (defined $self->{_prefix} || defined $self->{_number}) {
-		carp "Any number was not set";
-		return;
-	}
-	my $pref = $self->{_prefix};
-	return unless $pref =~ s/^0//;
-	my $regex = $TEL_TABLE{$pref};
-	return unless defined $regex;
-	$self->{_number} =~ /^$regex$/;
+sub is_valid_number {
+    my $self = shift;
+    unless ($self->_prefix || $self->_number) {
+        carp "Any number was not set";
+        return;
+    }
+    my $pref = $self->_prefix;
+    return unless $pref =~ s/^0//;
+    my $re = $TEL_TABLE{$pref};
+    return unless defined $re;
+    return $self->_number =~ /^$re$/;
 }
 
-sub _prefix
-{
-	my $self = shift;
-	$self->{_prefix} = shift;
-	$self;
-}
-
-sub _number
-{
-	my $self = shift;
-	$self->{_number} = shift;
-	$self;
-}
+sub _prefix : lvalue { shift->{_prefix} }
+sub _number : lvalue { shift->{_number} }
 
 1;
 __END__
-
-=pod
 
 =head1 NAME
 
@@ -145,42 +124,18 @@ The separator of number behind the prefix is ignored.
 
 =head1 METHODS
 
-=over 4
-
-=item * new
+=head2 new
 
 This method constructs the Number::Phone::JP instance. you can put
-some argument of a phone number to it. The argument should match the
-following syntaxes:
+some argument of a phone number to it.
+It needs a two stuff for validation, area prefix (or carrier's prefix)
+and following (means local-area prefix, subscriber's number, and something).
 
- # checking for 01-2345-6789.
- # by array
- "01", "23456789"
- "01", "2345", "6789"
- qw(01 23456789)
- qw(01 2 3 4 5 6 7 8 9)
- # by array reference
- ["01", "23456789"]
- # by scalar
- "01-2345-6789"
- "01-23456789"
- "(01)2345-6789"
- "(01)23456789"
- "(01)(2345)(6789)"
- "(01)(23456789)"
- "01.2345.6789"
- "01.23456789"
- "01 2345 6789"
- "01 23456789"
- "01 2.3-4(5)6 7-.(8-)9"
- "01(2345)6789" # added on version 0.03
+If you put only one argument, this module will separate it by
+the first non-number character. And it will be ignored any non-number
+characters.
 
-Some " " (space), "." (dot), "-" (hyphen) and "()" (round bracket),
-are treated equally to use for separator, And Others are
-non-recommended characters to use for separator. They will be removed
-before validation.
-
-=item * import
+=head2 import
 
 It exists to select what categories is used for validation. You should
 pass some specified categories to this method.
@@ -197,6 +152,7 @@ Categories list is as follows:
  PHS      ... Personal Handy-phone Systems
  Q2       ... Dial Q2 services
  United   ... United phone number
+ UPT      ... Universal Personal Telecommunication
 
 The category's names are B<ignored case>. Actually, the import method
 calls others C<Number::Phone::JP::Table::>I<Category> module and
@@ -207,7 +163,6 @@ For importing, you can import by calling this method, and you can
 import by B<calling this module> with some arguments.
 
  Example:
- 
   # by calling import method
   use Number::Phone::JP; # import all the categories (default)
   my $tel = Number::Phone::JP->new->import(qw(mobile PHS));
@@ -216,18 +171,16 @@ import by B<calling this module> with some arguments.
   use Number::Phone::JP qw(Mobile Phs);
   my $tel = Number::Phone::JP->new; # same as above
 
-=item * set_number
+=head2 set_number
 
 Set/change the target phone number. The syntax of arguments for this
 method is same as C<new()> method (see above).
 
-=item * is_valid_number
+=head2 is_valid_number
 
 This method validates what the already set number is valid on your
 specified categories. It returns true if the number is valid, and
-returns false if the number is not valid.
-
-=back
+returns false if the number is invalid.
 
 =head1 EXAMPLE
 
@@ -238,33 +191,22 @@ returns false if the number is not valid.
  while (<FH>) {
      chomp;
      unless ($tel->set_number($_)->is_valid_number) {
-         print "$_ is not valid number\n"
+         print "$_ is invalid number\n"
      }
  }
  close FH;
 
-=head1 QUESTIONS
+=head1 AUTHOR
 
-Q: I can't read and understand what is written on this POD. Because
-I'm Japanese.
+Koichi Taniguchi E<lt>taniguchi@livedoor.jpE<gt>
 
-A: Do not be afraid. There is B<"Japanized Perl Resources Project"> in
-Japan. See http://perldocjp.sourceforge.jp/, and find B<Japanized>
-POD at there.
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
 L<Number::Phone::JP::Table>
-
-=head1 AUTHOR
-
-Koichi Taniguchi E<lt>taniguchi@users.sourceforge.jpE<gt>
-
-=head1 COPYRIGHT
-
-Copyright (c) 2003 Koichi Taniguchi. Japan. All rights reserved.
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =cut
