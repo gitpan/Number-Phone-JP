@@ -6,8 +6,6 @@ use_ok('Number::Phone::JP', 'class2');
 my $tel = Number::Phone::JP->new;
 ok($tel->set_number('009120 12345678')->is_valid_number, 'checking for 009120 12345678');
 ok($tel->set_number('009121 12345678')->is_valid_number, 'checking for 009121 12345678');
-ok($tel->set_number('009122 12345678')->is_valid_number, 'checking for 009122 12345678');
-ok($tel->set_number('009123 12345678')->is_valid_number, 'checking for 009123 12345678');
 ok($tel->set_number('009130 12345678')->is_valid_number, 'checking for 009130 12345678');
 ok($tel->set_number('009144 12345678')->is_valid_number, 'checking for 009144 12345678');
 ok($tel->set_number('009145 12345678')->is_valid_number, 'checking for 009145 12345678');
@@ -16,7 +14,6 @@ ok($tel->set_number('009156 12345678')->is_valid_number, 'checking for 009156 12
 ok($tel->set_number('009177 12345678')->is_valid_number, 'checking for 009177 12345678');
 ok($tel->set_number('009180 12345678')->is_valid_number, 'checking for 009180 12345678');
 ok($tel->set_number('009181 12345678')->is_valid_number, 'checking for 009181 12345678');
-ok($tel->set_number('009188 12345678')->is_valid_number, 'checking for 009188 12345678');
 ok($tel->set_number('009191 12345678')->is_valid_number, 'checking for 009191 12345678');
 ok($tel->set_number('009192 12345678')->is_valid_number, 'checking for 009192 12345678');
 ok($tel->set_number('009198 12345678')->is_valid_number, 'checking for 009198 12345678');
@@ -31,6 +28,8 @@ ok(!$tel->set_number('009106 12345678')->is_valid_number, 'checking for 009106 1
 ok(!$tel->set_number('009107 12345678')->is_valid_number, 'checking for 009107 12345678');
 ok(!$tel->set_number('009108 12345678')->is_valid_number, 'checking for 009108 12345678');
 ok(!$tel->set_number('009109 12345678')->is_valid_number, 'checking for 009109 12345678');
+ok(!$tel->set_number('009122 12345678')->is_valid_number, 'checking for 009122 12345678');
+ok(!$tel->set_number('009123 12345678')->is_valid_number, 'checking for 009123 12345678');
 ok(!$tel->set_number('009124 12345678')->is_valid_number, 'checking for 009124 12345678');
 ok(!$tel->set_number('009125 12345678')->is_valid_number, 'checking for 009125 12345678');
 ok(!$tel->set_number('009126 12345678')->is_valid_number, 'checking for 009126 12345678');
@@ -87,6 +86,7 @@ ok(!$tel->set_number('009184 12345678')->is_valid_number, 'checking for 009184 1
 ok(!$tel->set_number('009185 12345678')->is_valid_number, 'checking for 009185 12345678');
 ok(!$tel->set_number('009186 12345678')->is_valid_number, 'checking for 009186 12345678');
 ok(!$tel->set_number('009187 12345678')->is_valid_number, 'checking for 009187 12345678');
+ok(!$tel->set_number('009188 12345678')->is_valid_number, 'checking for 009188 12345678');
 ok(!$tel->set_number('009189 12345678')->is_valid_number, 'checking for 009189 12345678');
 ok(!$tel->set_number('009190 12345678')->is_valid_number, 'checking for 009190 12345678');
 ok(!$tel->set_number('009193 12345678')->is_valid_number, 'checking for 009193 12345678');

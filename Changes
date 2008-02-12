@@ -1,5 +1,8 @@
 Revision histories for Perl extension Number::Phone::JP
 
+0.11  Thu Feb 12 2007
+     - Updated all table classes
+
 0.10  Thu Feb 15 2007
      - Full refactored. lib/* and t/*
      - Added a new table class Number::Phone::JP::Table::Upt
