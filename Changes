@@ -1,6 +1,9 @@
 Revision histories for Perl extension Number::Phone::JP
 
-0.11  Thu Feb 12 2007
+0.12  Thu Jun  4 2008
+     - Updated some table classes
+
+0.11  Thu Feb 12 2008
      - Updated all table classes
 
 0.10  Thu Feb 15 2007

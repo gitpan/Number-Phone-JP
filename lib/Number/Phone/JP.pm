@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use UNIVERSAL::require;
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 our %TEL_TABLE = ();
 
 sub import {

@@ -3,9 +3,9 @@ package Number::Phone::JP::Table::Class2;
 use strict;
 use warnings;
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
-# Table last modified: 2008-01-15
+# Table last modified: 2008-06-04
 our %TEL_TABLE = (
     # Pref => q<Assoc-Pref-Regex>,
     '09120'  => '\d+', # ブラステル
@@ -18,8 +18,8 @@ our %TEL_TABLE = (
     '09177'  => '\d+', # ソフトバンクBB
     '09180'  => '\d+', # スピーディア
     '09181'  => '\d+', # 関西コムネット
-    '09191'  => '\d+', # ぷららネットワークス
-    '09192'  => '\d+', # ぷららネットワークス
+    '09191'  => '\d+', # NTTぷらら
+    '09192'  => '\d+', # NTTぷらら
     '09198'  => '\d+', # ソフトバンクBB
     '09199'  => '\d+', # エヌティティエムイー中国
 );
