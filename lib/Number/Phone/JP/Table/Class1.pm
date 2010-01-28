@@ -3,13 +3,13 @@ package Number::Phone::JP::Table::Class1;
 use strict;
 use warnings;
 
-our $VERSION = '0.12';
+our $VERSION = '0.20100104';
 
-# Table last modified: 2008-06-04
+# Table last modified: 2010-01-04
 our %TEL_TABLE = (
     # Pref => q<Assoc-Pref-Regex>,
     '01'    => '\d+', # KDDI
-    '030'   => '\d+', # ZIPTelecom
+    '030'   => '\d+', # ZIP Telecom
     '031'   => '\d+', # アイ・ピー・エス
     '032'   => '\d+', # アイ・ピー・エス
     '033'   => '\d+', # NTTコミュニケーションズ

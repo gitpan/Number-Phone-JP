@@ -2,10 +2,11 @@ package Number::Phone::JP;
 
 use strict;
 use warnings;
+use 5.008_001;
 use Carp;
 use UNIVERSAL::require;
 
-our $VERSION = '0.12';
+our $VERSION = '0.20100104';
 our %TEL_TABLE = ();
 
 sub import {
@@ -152,7 +153,12 @@ Categories list is as follows:
  PHS      ... Personal Handy-phone Systems
  Q2       ... Dial Q2 services
  United   ... United phone number
+ FMC      ... Fixed Mobile Convergence
+              (was started in 2007 in Japan)
  UPT      ... Universal Personal Telecommunication
+              (was merged to FMC category in 2007 in Japan.
+               this class works same as FMC.
+               it's left for backward compatibility.)
 
 The category's names are B<ignored case>. Actually, the import method
 calls others C<Number::Phone::JP::Table::>I<Category> module and
@@ -198,7 +204,7 @@ returns false if the number is invalid.
 
 =head1 AUTHOR
 
-Koichi Taniguchi E<lt>taniguchi@livedoor.jpE<gt>
+Koichi Taniguchi (a.k.a. nipotan) E<lt>taniguchi@livedoor.jpE<gt>
 
 =head1 LICENSE
 

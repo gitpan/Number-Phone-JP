@@ -1,5 +1,14 @@
 Revision histories for Perl extension Number::Phone::JP
 
+0.20100104 Thu Jan 28 2010
+     - Updated some table classes ...
+       was menthioned by MIKIHOSHI (KAN Fushihara). thanks for letting me know.
+     - Added a new table class Number::Phone::JP::Table::Fmc
+     - And also Number::Phone::JP::Table::Upt class will be deprecated
+       in near future.
+     - Added a script that updates all of the table classes
+       when the tables are updated.
+
 0.12  Thu Jun  4 2008
      - Updated some table classes
 

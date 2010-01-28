@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 162;
+use Test::More tests => 171;
 
 use_ok('Number::Phone::JP', 'class1');
 
@@ -49,6 +49,15 @@ ok($tel->set_number('0084 12345678')->is_valid_number, 'checking for 0084 123456
 ok($tel->set_number('0086 12345678')->is_valid_number, 'checking for 0086 12345678');
 ok($tel->set_number('0088 12345678')->is_valid_number, 'checking for 0088 12345678');
 ok($tel->set_number('0089 12345678')->is_valid_number, 'checking for 0089 12345678');
+ok(!$tel->set_number('000 12345678')->is_valid_number, 'checking for 000 12345678');
+ok(!$tel->set_number('002 12345678')->is_valid_number, 'checking for 002 12345678');
+ok(!$tel->set_number('003 12345678')->is_valid_number, 'checking for 003 12345678');
+ok(!$tel->set_number('004 12345678')->is_valid_number, 'checking for 004 12345678');
+ok(!$tel->set_number('005 12345678')->is_valid_number, 'checking for 005 12345678');
+ok(!$tel->set_number('006 12345678')->is_valid_number, 'checking for 006 12345678');
+ok(!$tel->set_number('007 12345678')->is_valid_number, 'checking for 007 12345678');
+ok(!$tel->set_number('008 12345678')->is_valid_number, 'checking for 008 12345678');
+ok(!$tel->set_number('009 12345678')->is_valid_number, 'checking for 009 12345678');
 ok(!$tel->set_number('0040 12345678')->is_valid_number, 'checking for 0040 12345678');
 ok(!$tel->set_number('0047 12345678')->is_valid_number, 'checking for 0047 12345678');
 ok(!$tel->set_number('0048 12345678')->is_valid_number, 'checking for 0048 12345678');

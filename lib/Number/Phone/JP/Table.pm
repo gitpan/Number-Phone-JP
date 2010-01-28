@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use base qw(Exporter);
 
-our $VERSION = '0.12';
+our $VERSION = '0.20100104';
 our @EXPORT = qw(%TEL_TABLE);
 
 require Number::Phone::JP::Table::Class1;
@@ -17,7 +17,7 @@ require Number::Phone::JP::Table::Pager;
 require Number::Phone::JP::Table::Phs;
 require Number::Phone::JP::Table::Q2;
 require Number::Phone::JP::Table::United;
-require Number::Phone::JP::Table::Upt;
+require Number::Phone::JP::Table::Fmc;
 
 no warnings 'once';
 
@@ -32,7 +32,7 @@ our %TEL_TABLE = (
     %Number::Phone::JP::Table::Phs::TEL_TABLE,
     %Number::Phone::JP::Table::Q2::TEL_TABLE,
     %Number::Phone::JP::Table::United::TEL_TABLE,
-    %Number::Phone::JP::Table::Upt::TEL_TABLE,
+    %Number::Phone::JP::Table::Fmc::TEL_TABLE,
 );
 
 1;
@@ -53,7 +53,7 @@ by Number::Phone::JP.
 
 =head1 AUTHOR
 
-Koichi Taniguchi E<lt>taniguchi@livedoor.jpE<gt>
+Koichi Taniguchi (a.k.a. nipotan) E<lt>taniguchi@livedoor.jpE<gt>
 
 =head1 LICENSE
 
@@ -63,6 +63,6 @@ it under the same terms as Perl itself.
 =head1 SEE ALSO
 
 L<Number::Phone::JP>,
-http://www.soumu.go.jp/joho_tsusin/top/tel_number/number_shitei.html
+http://www.soumu.go.jp/main_sosiki/joho_tsusin/top/tel_number/number_shitei.html
 
 =cut
