@@ -18,9 +18,10 @@ no_index:
   directory:
     - inc
     - t
+    - xt
 requires:
   UNIVERSAL::require: 0
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.20110201
+version: 0.20110301
