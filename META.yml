@@ -1,7 +1,7 @@
 ---
 abstract: 'Validate Japanese phone numbers'
 author:
-  - 'Koichi Taniguchi (a.k.a. nipotan) <taniguchi@livedoor.jp>'
+  - 'Koichi Taniguchi (a.k.a. nipotan) <taniguchi@cpan.org>'
 build_requires:
   ExtUtils::MakeMaker: 6.59
   Test::More: 0
@@ -26,4 +26,4 @@ requires:
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.20130501
+version: 0.20130603
