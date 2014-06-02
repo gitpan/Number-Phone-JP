@@ -3,10 +3,11 @@ package Number::Phone::JP;
 use strict;
 use warnings;
 use 5.008_001;
+use parent qw(Number::Phone);
 use Carp;
 use UNIVERSAL::require;
 
-our $VERSION = '0.20140501';
+our $VERSION = '0.20140602';
 our %TEL_TABLE = ();
 
 sub import {
